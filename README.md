@@ -4,15 +4,15 @@ Junior Software Engineer Plan:
 
 Practices:
 1) Java Development
-2) Java Web Development
-3) Java Observability
+2) Java Web Development - (Java Global Learning Journey: 1)REST API - Architecture 2)Spring MVC)
+3) Java Observability - (Java Global Learning Journey: 1)Monitoring and troubleshooting the Java application)
 4) Cloud Design Patterns
-5) Java Dependency Injection
+5) Java Dependency Injection - (Java Global Learning Journey: 1)Spring Core)
 6) Java Bootstrapping
 7) Containerization
 8) Java Security
 9) Microservice Architecture Style
-10) Java Persistence
+10) Java Persistence - (Java Global Learning Journey: 1)JDBC Advanced Techniques (+ Spring JDBC))
 11) SQL
 12) NoSQL Databases
 13) Java Caching
