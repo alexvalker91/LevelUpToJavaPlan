@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:app.properties"/>
+
+    <!-- Storage -->
+    <bean id="inMemoryStorage" class="alex.valker91.storage.InMemoryStorage"/>
+    <bean id="storageInitializerPostProcessor" class="alex.valker91.storage.StorageInitializerPostProcessor">
+        <property name="usersDataFile" value="${storage.data.file.users}"/>
+        <property name="eventsDataFile" value="${storage.data.file.events}"/>
+        <property name="ticketsDataFile" value="${storage.data.file.tickets}"/>
+    </bean>
+
+    <!-- Daos -->
+    <bean id="userDao" class="alex.valker91.dao.impl.InMemoryUserDaoImpl">
+        <constructor-arg ref="inMemoryStorage"/>
+    </bean>
+    <bean id="eventDao" class="alex.valker91.dao.impl.InMemoryEventDaoImpl">
+        <constructor-arg ref="inMemoryStorage"/>
+    </bean>
+    <bean id="ticketDao" class="alex.valker91.dao.impl.InMemoryTicketDaoImpl">
+        <constructor-arg ref="inMemoryStorage"/>
+    </bean>
+
+    <!-- Services -->
+    <bean id="userService" class="alex.valker91.service.impl.UserServiceImpl" autowire="byType">
+    </bean>
+    <bean id="eventService" class="alex.valker91.service.impl.EventServiceImpl" autowire="byType">
+    </bean>
+    <bean id="ticketService" class="alex.valker91.service.impl.TicketServiceImpl" autowire="byType">
+    </bean>
+
+    <!-- Facade -->
+    <bean id="bookingFacade" class="alex.valker91.facade.impl.BookingFacadeImpl">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="eventService"/>
+        <constructor-arg ref="ticketService"/>
+    </bean>
+</beans>

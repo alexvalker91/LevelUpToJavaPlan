@@ -1,10 +1,14 @@
 package alex.valker91.model;
 
+import alex.valker91.model.impl.EventImpl;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 
 /**
  * Created by maksym_govorischev.
  */
+@JsonDeserialize(as = EventImpl.class)
 public interface Event {
     /**
      * Event id. UNIQUE.
