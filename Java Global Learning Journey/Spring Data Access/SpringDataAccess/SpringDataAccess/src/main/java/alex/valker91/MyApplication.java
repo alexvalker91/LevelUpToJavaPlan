@@ -13,7 +13,6 @@ public class MyApplication {
         BookingFacade bookingFacade = context.getBean("bookingFacade", BookingFacade.class);
         System.out.println("Hello World");
         System.out.println(bookingFacade.createUser(new UserImpl("alex", "alexvalker91@gmail.com")));
-        System.out.println(bookingFacade.getUserById(0).getEmail());
-        System.out.println(bookingFacade.getEventById(0).getDate());
+        System.out.println(bookingFacade.getUserById(1).getEmail());
     }
 }

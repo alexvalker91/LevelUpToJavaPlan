@@ -37,6 +37,7 @@
 
     <jpa:repositories base-package="alex.valker91.repository"/>
     <context:component-scan base-package="alex.valker91.repository"/>
+    <context:component-scan base-package="alex.valker91.config"/>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="alex.valker91.entity"/>
@@ -46,7 +47,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
