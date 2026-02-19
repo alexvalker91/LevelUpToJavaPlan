@@ -43,7 +43,6 @@ public class StorageInitializerPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) {
         if (bean instanceof InMemoryStorage storage) {
-            System.err.println("dsfsdfsdfsdfs");
             initializeInMemoryStorage(storage);
         }
         return bean;
