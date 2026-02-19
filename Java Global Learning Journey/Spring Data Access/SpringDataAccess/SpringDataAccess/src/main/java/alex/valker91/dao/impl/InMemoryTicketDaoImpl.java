@@ -70,4 +70,9 @@ public class InMemoryTicketDaoImpl implements TicketDao {
             return false;
         }
     }
+
+    @Override
+    public Ticket getById(long id) {
+        return storage.get(NAME_SPACE + ":" + id);
+    }
 }

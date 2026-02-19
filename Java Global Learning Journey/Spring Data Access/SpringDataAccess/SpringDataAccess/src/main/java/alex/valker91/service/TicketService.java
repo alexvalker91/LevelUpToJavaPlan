@@ -12,4 +12,5 @@ public interface TicketService {
     List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
     List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
     boolean cancelTicket(long ticketId);
+    Ticket getById(long id);
 }

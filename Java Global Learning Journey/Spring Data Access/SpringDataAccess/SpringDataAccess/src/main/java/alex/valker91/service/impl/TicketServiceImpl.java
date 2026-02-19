@@ -42,4 +42,9 @@ public class TicketServiceImpl implements TicketService {
     public boolean cancelTicket(long ticketId) {
         return ticketDao.cancelTicket(ticketId);
     }
+
+    @Override
+    public Ticket getById(long id) {
+        return ticketDao.getById(id);
+    }
 }
