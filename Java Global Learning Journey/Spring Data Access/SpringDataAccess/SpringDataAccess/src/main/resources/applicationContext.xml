@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd">
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/data/jpa
+                           http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <context:property-placeholder location="classpath:app.properties"/>
+    <context:property-placeholder location="classpath:app.properties,classpath:database.properties"/>
 
     <!-- Storage -->
     <bean id="inMemoryStorage" class="alex.valker91.storage.InMemoryStorage"/>
@@ -17,23 +20,57 @@
         <property name="ticketsDataFile" value="${storage.data.file.tickets}"/>
     </bean>
 
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
     <!-- Daos -->
-    <bean id="userDao" class="alex.valker91.dao.impl.InMemoryUserDaoImpl">
-        <constructor-arg ref="inMemoryStorage"/>
+<!--    <bean id="userDao" class="alex.valker91.dao.impl.InMemoryUserDaoImpl">-->
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+<!--    </bean>-->
+<!--    <bean id="eventDao" class="alex.valker91.dao.impl.InMemoryEventDaoImpl">-->
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+<!--    </bean>-->
+<!--    <bean id="ticketDao" class="alex.valker91.dao.impl.InMemoryTicketDaoImpl">-->
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+<!--    </bean>-->
+
+    <jpa:repositories base-package="alex.valker91.repository"/>
+    <context:component-scan base-package="alex.valker91.repository"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="alex.valker91.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
     </bean>
-    <bean id="eventDao" class="alex.valker91.dao.impl.InMemoryEventDaoImpl">
-        <constructor-arg ref="inMemoryStorage"/>
-    </bean>
-    <bean id="ticketDao" class="alex.valker91.dao.impl.InMemoryTicketDaoImpl">
-        <constructor-arg ref="inMemoryStorage"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
     </bean>
 
     <!-- Services -->
-    <bean id="userService" class="alex.valker91.service.impl.UserServiceImpl" autowire="byType">
+<!--    <bean id="userService" class="alex.valker91.service.impl.UserServiceImpl" autowire="byType">-->
+<!--    </bean>-->
+<!--    <bean id="eventService" class="alex.valker91.service.impl.EventServiceImpl" autowire="byType">-->
+<!--    </bean>-->
+<!--    <bean id="ticketService" class="alex.valker91.service.impl.TicketServiceImpl" autowire="byType">-->
+<!--    </bean>-->
+    <bean id="userService" class="alex.valker91.service.impl.DbUserServiceImpl" autowire="byType">
     </bean>
-    <bean id="eventService" class="alex.valker91.service.impl.EventServiceImpl" autowire="byType">
+    <bean id="eventService" class="alex.valker91.service.impl.DbEventServiceImpl" autowire="byType">
     </bean>
-    <bean id="ticketService" class="alex.valker91.service.impl.TicketServiceImpl" autowire="byType">
+    <bean id="ticketService" class="alex.valker91.service.impl.DbTicketServiceImpl" autowire="byType">
     </bean>
 
     <!-- Facade -->
