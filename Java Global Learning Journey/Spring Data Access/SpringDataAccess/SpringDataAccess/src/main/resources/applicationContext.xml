@@ -73,11 +73,14 @@
     </bean>
     <bean id="ticketService" class="alex.valker91.service.impl.DbTicketServiceImpl" autowire="byType">
     </bean>
+    <bean id="userAccountService" class="alex.valker91.service.impl.DbUserAccountServiceImpl" autowire="byType">
+    </bean>
 
     <!-- Facade -->
     <bean id="bookingFacade" class="alex.valker91.facade.impl.BookingFacadeImpl">
         <constructor-arg ref="userService"/>
         <constructor-arg ref="eventService"/>
         <constructor-arg ref="ticketService"/>
+        <constructor-arg ref="userAccountService"/>
     </bean>
 </beans>

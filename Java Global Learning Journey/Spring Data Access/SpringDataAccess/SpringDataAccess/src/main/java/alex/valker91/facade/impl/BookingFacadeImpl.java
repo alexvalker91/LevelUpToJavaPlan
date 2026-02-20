@@ -4,8 +4,10 @@ import alex.valker91.facade.BookingFacade;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
+import alex.valker91.model.UserAccount;
 import alex.valker91.service.EventService;
 import alex.valker91.service.TicketService;
+import alex.valker91.service.UserAccountService;
 import alex.valker91.service.UserService;
 
 import java.util.Date;
@@ -16,11 +18,16 @@ public class BookingFacadeImpl implements BookingFacade {
     private final UserService userService;
     private final EventService eventService;
     private final TicketService ticketService;
+    private final UserAccountService userAccountService;
 
-    public BookingFacadeImpl(UserService userService, EventService eventService, TicketService ticketService) {
+    public BookingFacadeImpl(UserService userService,
+                             EventService eventService,
+                             TicketService ticketService,
+                             UserAccountService userAccountService) {
         this.userService = userService;
         this.eventService = eventService;
         this.ticketService = ticketService;
+        this.userAccountService = userAccountService;
     }
 
     @Override
@@ -101,5 +108,25 @@ public class BookingFacadeImpl implements BookingFacade {
     @Override
     public boolean cancelTicket(long ticketId) {
         return ticketService.cancelTicket(ticketId);
+    }
+
+    @Override
+    public int refillUserAccount(long userId, int amount) {
+        return userAccountService.refillUserAccount(userId, amount);
+    }
+
+    @Override
+    public UserAccount createUserAccount(UserAccount userAccount) {
+        return userAccountService.createUserAccount(userAccount);
+    }
+
+    @Override
+    public UserAccount getUserAccountByUserId(long userId) {
+        return userAccountService.getUserAccountByUserId(userId);
+    }
+
+    @Override
+    public UserAccount updateUserAccount(UserAccount userAccount) {
+        return userAccountService.updateUserAccount(userAccount);
     }
 }

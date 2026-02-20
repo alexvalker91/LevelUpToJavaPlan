@@ -3,6 +3,7 @@ package alex.valker91.facade;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
+import alex.valker91.model.UserAccount;
 
 import java.util.Date;
 import java.util.List;
@@ -139,4 +140,11 @@ public interface BookingFacade {
      */
     boolean cancelTicket(long ticketId);
 
+    int refillUserAccount(long userId, int amount);
+
+    UserAccount createUserAccount(UserAccount userAccount);
+
+    UserAccount getUserAccountByUserId(long userId);
+
+    UserAccount updateUserAccount(UserAccount userAccount);
 }
