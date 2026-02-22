@@ -7,10 +7,12 @@ import alex.valker91.dao.impl.EventDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
 import alex.valker91.service.EventService;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class EventServiceImpl implements EventService {
 
     private static final Logger LOGGER = LogManager.getLogger(EventServiceImpl.class);

@@ -11,33 +11,33 @@ import java.util.List;
  * Groups together all operations related to tickets booking.
  * Created by maksym_govorischev.
  */
-public interface BookingFacade {
+    public interface BookingFacade {
 
-    /**
-     * Gets event by its id.
-     * @return Event.
-     */
-    Event getEventById(long eventId);
+        /**
+         * Gets event by its id.
+         * @return Event.
+         */
+        Event getEventById(long eventId);
 
-    /**
-     * Get list of events by matching title. Title is matched using 'contains' approach.
-     * In case nothing was found, empty list is returned.
-     * @param title Event title or it's part.
-     * @param pageSize Pagination param. Number of events to return on a page.
-     * @param pageNum Pagination param. Number of the page to return. Starts from 1.
-     * @return List of events.
-     */
-    List<Event> getEventsByTitle(String title, int pageSize, int pageNum);
+        /**
+         * Get list of events by matching title. Title is matched using 'contains' approach.
+         * In case nothing was found, empty list is returned.
+         * @param title Event title or it's part.
+         * @param pageSize Pagination param. Number of events to return on a page.
+         * @param pageNum Pagination param. Number of the page to return. Starts from 1.
+         * @return List of events.
+         */
+        List<Event> getEventsByTitle(String title, int pageSize, int pageNum);
 
-    /**
-     * Get list of events for specified day.
-     * In case nothing was found, empty list is returned.
-     * @param day Date object from which day information is extracted.
-     * @param pageSize Pagination param. Number of events to return on a page.
-     * @param pageNum Pagination param. Number of the page to return. Starts from 1.
-     * @return List of events.
-     */
-    List<Event> getEventsForDay(Date day, int pageSize, int pageNum);
+        /**
+         * Get list of events for specified day.
+         * In case nothing was found, empty list is returned.
+         * @param day Date object from which day information is extracted.
+         * @param pageSize Pagination param. Number of events to return on a page.
+         * @param pageNum Pagination param. Number of the page to return. Starts from 1.
+         * @return List of events.
+         */
+        List<Event> getEventsForDay(Date day, int pageSize, int pageNum);
 
     /**
      * Creates new event. Event id should be auto-generated.

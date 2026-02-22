@@ -10,9 +10,11 @@ import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
 import alex.valker91.model.impl.TicketImpl;
 import alex.valker91.service.TicketService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LogManager.getLogger(TicketServiceImpl.class);

@@ -1,3 +1,9 @@
+server:
+  port: 8085
 spring:
   application:
-    name: SpringMVC
+    name: spring-mvc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testabc
+    username: postgres
+    password: password
