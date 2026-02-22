@@ -1,5 +1,6 @@
 package alex.valker91.config;
 
+import alex.valker91.controller.exception.CustomExceptionResolver;
 import alex.valker91.facade.BookingFacade;
 import alex.valker91.facade.impl.BookingFacadeImpl;
 import alex.valker91.oxm.TicketXml;
@@ -12,9 +13,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
 public class AppConfig {
+
+    @Bean
+    public HandlerExceptionResolver customExceptionHandler() {
+        return new CustomExceptionResolver();
+    }
 
     @Bean
     public BookingFacade bookingFacade(EventService eventService,
