@@ -1,9 +1,9 @@
 package alex.valker91.service.impl;
 
+import alex.valker91.dao.TicketDAO;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import alex.valker91.dao.impl.TicketDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
@@ -19,7 +19,11 @@ public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LogManager.getLogger(TicketServiceImpl.class);
 
-    private TicketDAOImpl ticketDAO;
+    private TicketDAO ticketDAO;
+
+    public TicketServiceImpl(TicketDAO ticketDAO) {
+        this.ticketDAO = ticketDAO;
+    }
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
@@ -101,7 +105,7 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    public void setTicketDAO(TicketDAOImpl ticketDAO) {
+    public void setTicketDAO(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
     }
 }

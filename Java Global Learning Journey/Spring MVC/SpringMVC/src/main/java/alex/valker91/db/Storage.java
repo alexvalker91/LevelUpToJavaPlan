@@ -1,8 +1,11 @@
 package alex.valker91.db;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class Storage {
 
     private Map<String, String> inMemoryStorage = new HashMap<>();

@@ -1,9 +1,9 @@
 package alex.valker91.service.impl;
 
+import alex.valker91.dao.UserDAO;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import alex.valker91.dao.impl.UserDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.User;
 import alex.valker91.service.UserService;
@@ -16,7 +16,11 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
-    private UserDAOImpl userDAO;
+    private UserDAO userDAO;
+
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public User getUserById(long userId) {
@@ -118,7 +122,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void setUserDAO(UserDAOImpl userDAO) {
+    public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 }

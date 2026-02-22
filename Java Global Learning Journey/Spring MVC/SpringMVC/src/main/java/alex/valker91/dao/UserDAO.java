@@ -15,4 +15,8 @@ public interface UserDAO {
     User update(User user);
 
     boolean delete(long userId);
+
+    User getByEmail(String email);
+
+    List<User> getByName(String name, int pageSize, int pageNum);
 }

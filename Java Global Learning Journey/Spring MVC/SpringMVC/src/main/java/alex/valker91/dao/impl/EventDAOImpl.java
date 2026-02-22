@@ -8,6 +8,7 @@ import alex.valker91.db.Storage;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
 import alex.valker91.model.impl.EventImpl;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static alex.valker91.utils.Constants.DATE_FORMATTER;
 
+@Component
 public class EventDAOImpl implements EventDAO {
 
     private static final String NAMESPACE = "event:";
@@ -25,6 +27,10 @@ public class EventDAOImpl implements EventDAO {
     private static final Logger LOGGER = LogManager.getLogger(EventDAOImpl.class);
 
     private Storage storage;
+
+    public EventDAOImpl(Storage storage) {
+        this.storage = storage;
+    }
 
     @Override
     public Event getById(long id) {
@@ -113,6 +119,7 @@ public class EventDAOImpl implements EventDAO {
         return entity.contains(NAMESPACE);
     }
 
+    @Override
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
         LOGGER.log(Level.DEBUG, "Finding all events by title '{}' in the database using pagination", title);
 
@@ -173,6 +180,7 @@ public class EventDAOImpl implements EventDAO {
         return events;
     }
 
+    @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
         LOGGER.log(Level.DEBUG, "Finding all events for day {} in the database using pagination", day);
 

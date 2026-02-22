@@ -8,12 +8,14 @@ import alex.valker91.db.Storage;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.User;
 import alex.valker91.model.impl.UserImpl;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class UserDAOImpl implements UserDAO {
 
     private static final String NAMESPACE = "user:";
@@ -21,6 +23,10 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
 
     private Storage storage;
+
+    public UserDAOImpl(Storage storage) {
+        this.storage = storage;
+    }
 
     @Override
     public User getById(long id) {
@@ -68,6 +74,7 @@ public class UserDAOImpl implements UserDAO {
         return text.replaceAll("'", "");
     }
 
+    @Override
     public User getByEmail(String email) {
         LOGGER.log(Level.DEBUG, "Finding a user by email: {}", email);
 
@@ -98,6 +105,7 @@ public class UserDAOImpl implements UserDAO {
         return entity.contains("'email' : '" + email + "'");
     }
 
+    @Override
     public List<User> getByName(String name, int pageSize, int pageNum) {
         LOGGER.log(Level.DEBUG, "Finding all users by name '{}' in the database using pagination", name);
 

@@ -10,12 +10,14 @@ import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
 import alex.valker91.model.impl.TicketImpl;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class TicketDAOImpl implements TicketDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(TicketDAOImpl.class);
@@ -23,6 +25,10 @@ public class TicketDAOImpl implements TicketDAO {
     private static final String NAMESPACE = "ticket:";
 
     private Storage storage;
+
+    public TicketDAOImpl(Storage storage) {
+        this.storage = storage;
+    }
 
     @Override
     public Ticket getById(long id) {
@@ -99,6 +105,7 @@ public class TicketDAOImpl implements TicketDAO {
         return entity.contains(NAMESPACE);
     }
 
+    @Override
     public List<Ticket> getAllByUser(User user, int pageSize, int pageNum) {
         LOGGER.log(Level.DEBUG, "Finding all booked tickets by user '{}' in the database using pagination", user);
 
@@ -162,6 +169,7 @@ public class TicketDAOImpl implements TicketDAO {
         return start + pageSize;
     }
 
+    @Override
     public List<Ticket> getAllByEvent(Event event, int pageSize, int pageNum) {
         LOGGER.log(Level.DEBUG, "Finding all booked tickets by event '{}' in the database using pagination", event);
 
