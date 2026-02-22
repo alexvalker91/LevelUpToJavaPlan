@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ошибка</title>
+</head>
+<body>
+<h1>Упс! Произошла ошибка</h1>
+
+<!-- Вывод сообщения об ошибке -->
+<p style="color: red;" th:text="${errorMessage}">Текст ошибки</p>
+
+<!-- Вывод списка деталей, если они есть -->
+<ul th:if="${details}">
+    <li th:each="err : ${details}" th:text="${err}">Деталь ошибки</li>
+</ul>
+
+<a href="/users/main/page">Вернуться на главную</a>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package alex.valker91.controller;
 
+import alex.valker91.controller.exception.BadRequestException;
 import alex.valker91.controller.payload.NewTicketPayload;
 import alex.valker91.facade.BookingFacade;
 import alex.valker91.model.Event;
@@ -23,11 +24,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(("tickets"))
+@RequestMapping("tickets")
 @RequiredArgsConstructor
 public class TicketController {
 
@@ -50,24 +52,27 @@ public class TicketController {
 
     @PostMapping("create")
     public String createTicket(NewTicketPayload payload,
-                               Model model,
-                               HttpServletResponse response) {
-        try {
+                               Model model
+//            ,
+//                               HttpServletResponse response
+    ) {
+//        try {
             Ticket ticket = bookingFacade.bookTicket(payload.userId(), payload.eventId(), payload.place(), payload.category());
             if (ticket == null) {
-                response.setStatus(HttpStatus.BAD_REQUEST.value());
-                model.addAttribute("payload", payload);
-                model.addAttribute("errors", "Unable to book ticket. Check balance or place availability.");
-                return "tickets/new_ticket";
+//                response.setStatus(HttpStatus.BAD_REQUEST.value());
+//                model.addAttribute("payload", payload);
+//                model.addAttribute("errors", "Unable to book ticket. Check balance or place availability.");
+//                return "tickets/new_ticket";
+                throw new BadRequestException(Collections.singletonList("Unable to book ticket. Check balance or place availability."));
             }
             model.addAttribute("ticket", ticket);
             return "tickets/new_ticket";
-        } catch (Exception exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getMessage());
-            return "tickets/new_ticket";
-        }
+//        } catch (Exception exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getMessage());
+//            return "tickets/new_ticket";
+//        }
     }
 
     @GetMapping("cancel")
@@ -91,9 +96,11 @@ public class TicketController {
                                     @RequestParam("ticketPrice") int ticketPrice,
                                     @RequestParam("pageSize") int pageSize,
                                     @RequestParam("pageNum") int pageNum,
-                                    Model model,
-                                    HttpServletResponse response) {
-        try {
+                                    Model model
+//            ,
+//                                    HttpServletResponse response
+    ) throws ParseException {
+//        try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date parsedDate = formatter.parse(date);
             Event event = new EventImpl(eventId, title, parsedDate, ticketPrice);
@@ -107,16 +114,16 @@ public class TicketController {
             model.addAttribute("pageSize", pageSize);
             model.addAttribute("pageNum", pageNum);
             model.addAttribute("ticketsByEvent", tickets);
-        } catch (ParseException e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("errors", e.getMessage());
-            model.addAttribute("eventId", eventId);
-            model.addAttribute("title", title);
-            model.addAttribute("date", date);
-            model.addAttribute("ticketPrice", ticketPrice);
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("pageNum", pageNum);
-        }
+//        } catch (ParseException e) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("errors", e.getMessage());
+//            model.addAttribute("eventId", eventId);
+//            model.addAttribute("title", title);
+//            model.addAttribute("date", date);
+//            model.addAttribute("ticketPrice", ticketPrice);
+//            model.addAttribute("pageSize", pageSize);
+//            model.addAttribute("pageNum", pageNum);
+//        }
         return "tickets/list_tickets";
     }
 
@@ -143,13 +150,12 @@ public class TicketController {
     @PostMapping("preload")
     @ResponseBody
     public String preloadTickets() {
-        try {
-            // Вызов метода preloadTickets
+//        try {
             bookingFacade.preloadTickets(new ClassPathResource("tickets.xml"));
             return "Tickets have been preloaded successfully.";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Failed to preload tickets: " + e.getMessage();
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "Failed to preload tickets: " + e.getMessage();
+//        }
     }
 }

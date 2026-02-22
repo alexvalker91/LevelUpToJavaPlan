@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(("users"))
+@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -40,19 +40,21 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public String createUser(NewUserPayload payload,
-                             Model model,
-                             HttpServletResponse response) {
-        try {
+    public String createUser(NewUserPayload payload
+//            ,
+//                             Model model,
+//                             HttpServletResponse response
+    ) {
+//        try {
             User user = new UserImpl(payload.id(), payload.name(), payload.email());
             user = bookingFacade.createUser(user);
             return "redirect:/users/%d".formatted(user.getId());
-        } catch (BadRequestException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
-            return "users/new_user";
-        }
+//        } catch (BadRequestException exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getErrors());
+//            return "users/new_user";
+//        }
     }
 
     @GetMapping("{userId}")
@@ -76,21 +78,23 @@ public class UserController {
     }
 
     @PostMapping("{userId}/edit")
-    public String updateEvent(@PathVariable("userId") int userId,
-                              UpdateUserPayload payload,
-                              Model model,
-                              HttpServletResponse response) {
-        try {
+    public String updateUser(@PathVariable("userId") int userId,
+                              UpdateUserPayload payload
+//            ,
+//                              Model model,
+//                              HttpServletResponse response
+    ) {
+//        try {
             User user = bookingFacade.getUserById(userId);
             user.setName(payload.name());
             User updatedUser = bookingFacade.updateUser(user);
             return "redirect:/users/%d".formatted(updatedUser.getId());
-        } catch (BadRequestException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
-            return "users/edit";
-        }
+//        } catch (BadRequestException exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getErrors());
+//            return "users/edit";
+//        }
     }
 
     @GetMapping("userbyemail")

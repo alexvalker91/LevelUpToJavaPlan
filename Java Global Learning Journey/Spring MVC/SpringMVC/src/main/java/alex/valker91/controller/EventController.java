@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-@RequestMapping(("events"))
+@RequestMapping("events")
 @RequiredArgsConstructor
 public class EventController {
 
@@ -44,25 +44,27 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String createEvent(NewEventPayload payload,
-                              Model model,
-                              HttpServletResponse response) {
-        try {
+    public String createEvent(NewEventPayload payload
+//            ,
+//                              Model model,
+//                              HttpServletResponse response
+    ) throws ParseException {
+//        try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Event event = new EventImpl(payload.id(), payload.title(), formatter.parse(payload.date()), payload.ticketPrice());
             event = bookingFacade.createEvent(event);
             return "redirect:/events/%d".formatted(event.getId());
-        } catch (BadRequestException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
-            return "events/new_event";
-        } catch (ParseException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getMessage());
-            return "events/new_event";
-        }
+//        } catch (BadRequestException exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getErrors());
+//            return "events/new_event";
+//        } catch (ParseException exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getMessage());
+//            return "events/new_event";
+//        }
     }
 
     @GetMapping("{eventId}")
@@ -87,20 +89,22 @@ public class EventController {
 
     @PostMapping("{eventId}/edit")
     public String updateEvent(@PathVariable("eventId") int eventId,
-                              UpdateEventPayload payload,
-                              Model model,
-                              HttpServletResponse response) {
-        try {
+                              UpdateEventPayload payload
+//            ,
+//                              Model model,
+//                              HttpServletResponse response
+    ) {
+//        try {
             Event event = bookingFacade.getEventById(eventId);
             event.setTitle(payload.title());
             Event updatedEvent = bookingFacade.updateEvent(event);
             return "redirect:/events/%d".formatted(updatedEvent.getId());
-        } catch (BadRequestException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
-            return "events/edit";
-        }
+//        } catch (BadRequestException exception) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("payload", payload);
+//            model.addAttribute("errors", exception.getErrors());
+//            return "events/edit";
+//        }
     }
 
     @GetMapping("list/by-title")
@@ -119,20 +123,22 @@ public class EventController {
     public String getEventsForDay(@RequestParam("day") String day,
                                   @RequestParam("pageSize") int pageSize,
                                   @RequestParam("pageNum") int pageNum,
-                                  Model model,
-                                  HttpServletResponse response) {
-        try {
+                                  Model model
+//            ,
+//                                  HttpServletResponse response
+    ) throws ParseException {
+//        try {
             SimpleDateFormat dayFormatter = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDay = dayFormatter.parse(day);
             model.addAttribute("dayInput", day);
             model.addAttribute("pageSize", pageSize);
             model.addAttribute("pageNum", pageNum);
             model.addAttribute("eventsByDay", bookingFacade.getEventsForDay(parsedDay, pageSize, pageNum));
-        } catch (ParseException e) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            model.addAttribute("errors", e.getMessage());
-            model.addAttribute("dayInput", day);
-        }
+//        } catch (ParseException e) {
+//            response.setStatus(HttpStatus.BAD_REQUEST.value());
+//            model.addAttribute("errors", e.getMessage());
+//            model.addAttribute("dayInput", day);
+//        }
         return "events/list_events";
     }
 }
