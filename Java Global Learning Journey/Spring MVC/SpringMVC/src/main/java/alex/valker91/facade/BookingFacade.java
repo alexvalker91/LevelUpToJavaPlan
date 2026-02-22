@@ -3,6 +3,7 @@ package alex.valker91.facade;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
+import org.springframework.core.io.Resource;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Groups together all operations related to tickets booking.
  * Created by maksym_govorischev.
  */
-    public interface BookingFacade {
+public interface BookingFacade {
 
         /**
          * Gets event by its id.
@@ -139,4 +140,5 @@ import java.util.List;
      */
     boolean cancelTicket(long ticketId);
 
+    void preloadTickets(Resource resource);
 }

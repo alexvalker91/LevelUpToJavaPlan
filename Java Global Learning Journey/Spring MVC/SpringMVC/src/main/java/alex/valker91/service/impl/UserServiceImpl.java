@@ -7,10 +7,12 @@ import org.apache.logging.log4j.Logger;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.User;
 import alex.valker91.service.UserService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Primary
 @Service
 public class UserServiceImpl implements UserService {
 

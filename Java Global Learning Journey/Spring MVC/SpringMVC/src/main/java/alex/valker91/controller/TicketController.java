@@ -7,6 +7,7 @@ import alex.valker91.model.Ticket;
 import alex.valker91.model.impl.EventImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -136,5 +138,18 @@ public class TicketController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
+    }
+
+    @PostMapping("preload")
+    @ResponseBody
+    public String preloadTickets() {
+        try {
+            // Вызов метода preloadTickets
+            bookingFacade.preloadTickets(new ClassPathResource("tickets.xml"));
+            return "Tickets have been preloaded successfully.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failed to preload tickets: " + e.getMessage();
+        }
     }
 }

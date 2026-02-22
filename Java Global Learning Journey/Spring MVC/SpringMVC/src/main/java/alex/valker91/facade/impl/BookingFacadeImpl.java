@@ -4,10 +4,18 @@ import alex.valker91.facade.BookingFacade;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
+import alex.valker91.oxm.TicketXml;
+import alex.valker91.oxm.TicketsXml;
 import alex.valker91.service.EventService;
 import alex.valker91.service.TicketService;
 import alex.valker91.service.UserService;
+import org.springframework.core.io.Resource;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.xml.transform.stream.StreamSource;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +27,19 @@ public class BookingFacadeImpl implements BookingFacade {
 
     private final UserService userService;
 
-    public BookingFacadeImpl(EventService eventService, TicketService ticketService, UserService userService) {
+    private final Jaxb2Marshaller ticketsMarshaller;
+    private final TransactionTemplate transactionTemplate;
+
+    public BookingFacadeImpl(EventService eventService,
+                             TicketService ticketService,
+                             UserService userService,
+                             Jaxb2Marshaller ticketsMarshaller,
+                             TransactionTemplate transactionTemplate) {
         this.eventService = eventService;
         this.ticketService = ticketService;
         this.userService = userService;
+        this.ticketsMarshaller = ticketsMarshaller;
+        this.transactionTemplate = transactionTemplate;
     }
 
     @Override
@@ -103,5 +120,41 @@ public class BookingFacadeImpl implements BookingFacade {
     @Override
     public boolean cancelTicket(long ticketId) {
         return ticketService.cancelTicket(ticketId);
+    }
+
+    @Override
+    public void preloadTickets(Resource resource) {
+        TicketsXml tickets;
+
+        try {
+            tickets = (TicketsXml) ticketsMarshaller.unmarshal(new StreamSource(resource.getInputStream()));
+        } catch (Exception e) {
+            // TODO
+//            System.out.println("Failed to book ticket for user");
+            return;
+        }
+
+        for (TicketXml t : tickets.getTickets()) {
+            try {
+                transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                    @Override
+                    protected void doInTransactionWithoutResult(TransactionStatus status) {
+                        Ticket.Category category = Ticket.Category.valueOf(t.getCategory().toUpperCase());
+                        Ticket booked = ticketService.bookTicket(t.getUser(), t.getEvent(), t.getPlace(), category);
+
+                        if (booked == null) {
+                            // TODO
+//                            System.out.println("Failed to book ticket for user = " + t.getUser() +
+//                                    ", event=" + t.getEvent() + ", place=" + t.getPlace());
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                // TODO
+//                System.out.println("Failed to book ticket for user=" + t.getUser() +
+//                        ", event=" + t.getEvent() + ", place=" + t.getPlace());
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -10,10 +10,12 @@ import alex.valker91.model.Ticket;
 import alex.valker91.model.User;
 import alex.valker91.model.impl.TicketImpl;
 import alex.valker91.service.TicketService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Primary
 @Service
 public class TicketServiceImpl implements TicketService {
 
