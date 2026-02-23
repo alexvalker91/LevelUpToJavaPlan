@@ -1,7 +1,6 @@
 package alex.valker91.service.impl;
 
 import alex.valker91.dao.UserDAO;
-import alex.valker91.dao.impl.UserDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.User;
 import alex.valker91.service.UserService;

@@ -1,7 +1,6 @@
 package alex.valker91.service.impl;
 
 import alex.valker91.dao.TicketDAO;
-import alex.valker91.dao.impl.TicketDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
 import alex.valker91.model.Ticket;
