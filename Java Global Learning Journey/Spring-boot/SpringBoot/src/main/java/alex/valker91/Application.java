@@ -1,4 +1,4 @@
-package alex.valker91.SpringBoot;
+package alex.valker91;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
