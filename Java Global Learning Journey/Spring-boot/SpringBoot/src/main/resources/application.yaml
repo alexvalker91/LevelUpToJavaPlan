@@ -1,3 +1,9 @@
+server:
+  port: 8085
 spring:
   application:
     name: SpringBoot
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sdzfsf
+    username: postgres
+    password: password
