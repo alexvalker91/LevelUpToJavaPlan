@@ -1,5 +1,6 @@
 package alex.valker91.service.impl;
 
+import alex.valker91.dao.UserDAO;
 import alex.valker91.dao.impl.UserDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.User;
@@ -16,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
-    private final UserDAO userDAO;
+    private UserDAO userDAO;
 
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -122,7 +123,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void setUserDAO(UserDAOImpl userDAO) {
+    public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 }

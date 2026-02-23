@@ -1,6 +1,6 @@
 package alex.valker91.repository;
 
-import alex.valker91.spring_boot.entity.UserDb;
+import alex.valker91.entity.UserDb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;

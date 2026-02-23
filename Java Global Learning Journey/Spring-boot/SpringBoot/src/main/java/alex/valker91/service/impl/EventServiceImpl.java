@@ -1,5 +1,6 @@
 package alex.valker91.service.impl;
 
+import alex.valker91.dao.EventDAO;
 import alex.valker91.dao.impl.EventDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
@@ -17,7 +18,7 @@ public class EventServiceImpl implements EventService {
 
     private static final Logger LOGGER = LogManager.getLogger(EventServiceImpl.class);
 
-    private final EventDAO eventDAO;
+    private EventDAO eventDAO;
 
     public EventServiceImpl(EventDAO eventDAO) {
         this.eventDAO = eventDAO;
@@ -127,11 +128,11 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    public EventDAOImpl getEventDAO() {
+    public EventDAO getEventDAO() {
         return eventDAO;
     }
 
-    public void setEventDAO(EventDAOImpl eventDAO) {
+    public void setEventDAO(EventDAO eventDAO) {
         this.eventDAO = eventDAO;
     }
 }

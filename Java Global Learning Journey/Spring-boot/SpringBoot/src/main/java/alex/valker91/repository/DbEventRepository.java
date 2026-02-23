@@ -1,6 +1,6 @@
 package alex.valker91.repository;
 
-import alex.valker91.spring_boot.entity.EventDb;
+import alex.valker91.entity.EventDb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

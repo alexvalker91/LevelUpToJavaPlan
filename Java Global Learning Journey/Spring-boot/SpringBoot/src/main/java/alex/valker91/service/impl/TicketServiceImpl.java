@@ -1,5 +1,6 @@
 package alex.valker91.service.impl;
 
+import alex.valker91.dao.TicketDAO;
 import alex.valker91.dao.impl.TicketDAOImpl;
 import alex.valker91.exception.DbException;
 import alex.valker91.model.Event;
@@ -19,7 +20,7 @@ public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LogManager.getLogger(TicketServiceImpl.class);
 
-    private final TicketDAO ticketDAO;
+    private TicketDAO ticketDAO;
 
     public TicketServiceImpl(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
@@ -110,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.getById(id);
     }
 
-    public void setTicketDAO(TicketDAOImpl ticketDAO) {
+    public void setTicketDAO(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
     }
 }
