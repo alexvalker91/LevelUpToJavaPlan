@@ -10,12 +10,14 @@ import alex.valker91.model.impl.TicketImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class TicketDAOImpl implements TicketDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(TicketDAOImpl.class);

@@ -8,6 +8,7 @@ import alex.valker91.model.impl.EventImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static alex.valker91.utils.Constants.DATE_FORMATTER;
 
+@Component
 public class EventDAOImpl implements EventDAO {
 
     private static final String NAMESPACE = "event:";
