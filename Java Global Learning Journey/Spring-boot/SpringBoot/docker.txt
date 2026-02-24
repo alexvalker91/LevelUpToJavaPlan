@@ -1,0 +1,43 @@
+>wsl
+>docker --version
+>docker info
+
+>docker ps // Показывает список запущенных контейнеров.
+>docker ps -a // Показывает все контейнеры, включая остановленные.
+
+>docker run <имя_образа> // Запускает новый контейнер из указанного образа.
+>docker stop <идентификатор_контейнера> // Останавливает запущенный контейнер.
+>docker rm <идентификатор_контейнера> // Удаляет один или несколько остановленных контейнеров.
+>docker start <идентификатор_контейнера> // Запускает ранее остановленный контейнер.
+----------------------
+>cd "AliaksandrKreyer/Desktop/LevelUpToJavaPlan/Java Global Learning Journey/Spring-boot/SpringBoot"
+
+// запускаем контейнер Keycloak в режиме "development" через Docker и подключить файл импорта keycloack.json, который находится у меня в проекте по пути config/keycloak
+>docker run --name my-keycloack -p 8082:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v ./config/keycloak:/opt/keycloak/data/import quay.io/keycloak/keycloak:23.0.4 start-dev --import-realm
+
+----
+open "http://localhost:8082/"
+create "Create realm"
+Realm name "my-realm"
+Create
+----
+// создаем группы "Managers" и "Customers"
+// создаем роли "ROLE_MANAGER" и "ROLE_CUSTOMER"
+// Groups -> Group details:
+//    Managers -> Role mapping -> assign role -> ROLE_MANAGER -> assign
+//    Customers -> Role mapping -> assign role -> ROLE_CUSTOMER -> assign
+
+// создаем user, два Alex_Customer и Alex_Manager
+// создаем client:
+Client ID: manager-app
+Client authentication: On
+Root URL: http://localhost:8080/
+// создаем client scope, два:
+1) Name : view_data
+1) Name : edit_data
+
+ClientID: manager-app
+Client Secret: Zxcy3cXT656AZ6aNxQsQZguLz68ifLJg
+----------------------
+Ctr + c
+----------------------
