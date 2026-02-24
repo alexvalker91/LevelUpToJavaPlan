@@ -2,7 +2,7 @@ package alex.valker91.model;
 
 import alex.valker91.model.impl.EventImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
 

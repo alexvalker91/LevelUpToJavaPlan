@@ -1,7 +1,7 @@
 package alex.valker91.model;
 
 import alex.valker91.model.impl.UserImpl;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Created by maksym_govorischev on 14/03/14.

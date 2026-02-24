@@ -1,0 +1,1 @@
+java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar event-service-rest\target\event-service-rest-2.0.0-SNAPSHOT.jar
