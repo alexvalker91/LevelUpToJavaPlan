@@ -4,7 +4,7 @@ spring:
   application:
     name: SpringBoot
   datasource:
-    url: jdbc:postgresql://localhost:5432/spring-boot-db-test
+    url: jdbc:postgresql://localhost:5432/rest-api-architecture-test-example
     username: postgres
     password: password
   security:

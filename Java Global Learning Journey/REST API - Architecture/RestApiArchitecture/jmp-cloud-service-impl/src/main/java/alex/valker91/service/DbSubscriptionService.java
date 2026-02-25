@@ -18,10 +18,12 @@ public class DbSubscriptionService implements SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public DbSubscriptionService(SubscriptionRepository subscriptionRepository, UserRepository userRepository) {
+    public DbSubscriptionService(SubscriptionRepository subscriptionRepository, UserRepository userRepository, UserService userService) {
         this.subscriptionRepository = subscriptionRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -30,7 +32,8 @@ public class DbSubscriptionService implements SubscriptionService {
             throw new IllegalArgumentException("Subscription user with id not exist");
         }
         Long userId = subscription.getUser().getId();
-        userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+//        userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+        userService.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
         SubscriptionEntity entity = EntityMapper.toSubscriptionEntity(subscription);
         entity = subscriptionRepository.save(entity);
         return EntityMapper.toSubscription(entity);
@@ -51,6 +54,7 @@ public class DbSubscriptionService implements SubscriptionService {
                     }
                     if (userId != null) {
                         userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+//                        userService.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
                     }
                     subscriptionEntity.setUserId(userId);
                     subscriptionEntity.setStartDate(subscription.getStartDate());
