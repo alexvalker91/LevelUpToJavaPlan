@@ -5,9 +5,7 @@ import alex.valker91.model.Event;
 import alex.valker91.model.impl.EventImpl;
 import alex.valker91.repository.DbEventRepository;
 import alex.valker91.service.EventService;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +18,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Primary
 @Service
 public class DbEventServiceImpl implements EventService {
-
-    private static final Logger LOGGER = LogManager.getLogger(DbEventServiceImpl.class);
 
     private final DbEventRepository dbEventRepository;
 
@@ -34,14 +31,14 @@ public class DbEventServiceImpl implements EventService {
 
     @Override
     public Event getEventById(long eventId) {
-        LOGGER.log(Level.DEBUG, "Finding an event by id: {}", eventId);
+        log.info("Finding an event by id: {}", eventId);
         Optional<EventDb> eventDbOptional = this.dbEventRepository.findById(eventId);
         if (eventDbOptional.isPresent()) {
             Event event = mapEventDbToEvent(eventDbOptional.get());
-            LOGGER.log(Level.DEBUG, "Event with id {} successfully found ", eventId);
+            log.info("Event with id {} successfully found ", eventId);
             return event;
         } else {
-            LOGGER.log(Level.WARN, "Can not to find an event by id: " + eventId);
+            log.info("Can not to find an event by id: " + eventId);
             return null;
         }
     }
@@ -81,7 +78,7 @@ public class DbEventServiceImpl implements EventService {
     @Override
     public Event createEvent(Event event) {
         if (event == null) {
-            LOGGER.log(Level.WARN, "Can not to create an event: {}", event);
+            log.info("Can not to create an event: {}", event);
             return null;
         }
         EventDb eventDb = mapEventToEventDb(event);
@@ -93,7 +90,7 @@ public class DbEventServiceImpl implements EventService {
     @Override
     public Event updateEvent(Event event) {
         if (event == null) {
-            LOGGER.log(Level.WARN, "Can not to create an event: {}", event);
+            log.info("Can not to create an event: {}", event);
             return null;
         }
         EventDb eventDb = mapEventToEventDb(event);
@@ -106,10 +103,10 @@ public class DbEventServiceImpl implements EventService {
         Optional<EventDb> eventDbOptional = this.dbEventRepository.findById(eventId);
         if (eventDbOptional.isPresent()) {
             this.dbEventRepository.deleteById(eventId);
-            LOGGER.log(Level.DEBUG, "Successfully deletion of the event with id: {}", eventId);
+            log.info("Successfully deletion of the event with id: {}", eventId);
             return true;
         } else {
-            LOGGER.log(Level.WARN, "Can not to delete an event with id: {}", eventId);
+            log.info("Can not to delete an event with id: {}", eventId);
             return false;
         }
     }

@@ -3,6 +3,7 @@ package alex.valker91.controller;
 import alex.valker91.facade.BookingFacade;
 import alex.valker91.model.Event;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/events")
@@ -30,6 +32,7 @@ public class EventRestController {
      */
     @GetMapping("/{eventId}")
     public Event getEventById(@PathVariable long eventId) {
+        log.info("Request to get event by id: {}", eventId);
         return bookingFacade.getEventById(eventId);
     }
 
@@ -71,6 +74,7 @@ public class EventRestController {
      */
     @PostMapping("/create_event")
     public Event createEvent(@RequestBody Event event) {
+        log.info("Request to create event: {}", event.getTitle());
         return bookingFacade.createEvent(event);
     }
 
