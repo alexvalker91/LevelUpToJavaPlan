@@ -13,8 +13,6 @@ public class MyListener {
     @JmsListener(
             destination = "${my.destination.name}",
             containerFactory = "onNonDurableListener"
-//            ,
-//            subscription = "non-durable-sub"
     )
     public void onNonDurableListener(String message) {
         log.info("onNonDurableListener received: " + message);
@@ -23,8 +21,6 @@ public class MyListener {
     @JmsListener(
             destination = "${my.destination.name}",
             containerFactory = "onDurableListener"
-//            ,
-//            subscription = "durable-sub"
     )
     public void onDurableListener(String message) {
         log.info("onDurableListener received: " + message);
