@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: publisher
+  activemq:
+    broker-url: tcp://172.23.55.167:61616
+    user: admin
+    password: admin
+
+my:
+  destination:
+    name: my-destination-name

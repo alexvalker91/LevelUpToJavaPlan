@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: subscriber
+  activemq:
+    broker-url: tcp://172.23.55.167:61616
+    user: admin
+    password: admin
+
+my:
+  destination:
+    name: my-destination-name
+  unique:
+    client:
+      id: my-unique-client-id
