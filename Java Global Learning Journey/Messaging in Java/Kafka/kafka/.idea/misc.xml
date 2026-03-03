@@ -7,6 +7,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-cluster-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/kafka-cluster-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-article-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-article-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-article-consumer-second/pom.xml" />
       </list>
     </option>
   </component>

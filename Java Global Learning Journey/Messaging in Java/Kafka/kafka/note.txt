@@ -1,0 +1,8 @@
+// Run
+docker-compose -f docker-compose-cluster.yml up
+docker-compose -f docker-compose-article.yml up
+
+docker-compose -f docker-compose-article.yml down
+
+// kafka-article
+https://habr.com/ru/articles/742786/
